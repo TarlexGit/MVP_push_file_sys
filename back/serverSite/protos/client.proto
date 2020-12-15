@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package client;
+
+import "google/protobuf/empty.proto";
+
+service UpFilesController {
+  rpc List(UpFilesListRequest) returns (stream Response) {} 
+  rpc Create (stream Request) returns (stream Response);
+  rpc Retrieve(UpFilesRetrieveRequest) returns (Response) {}
+  rpc Update(Request) returns (Response) {}
+  rpc Destroy(Request) returns (google.protobuf.Empty) {}
+}
+
+message Request {
+  string client_token = 1;
+  string file_name = 2;
+  bytes request_data = 3;
+}
+
+message Response {
+  string response_data = 1;
+}
+
+message UpFilesListRequest {
+}
+
+message UpFilesRetrieveRequest {
+    int32 id = 1;
+}

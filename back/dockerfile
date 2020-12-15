@@ -1,0 +1,17 @@
+FROM python:3.8.6
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ 
+WORKDIR /MVP_dock
+
+COPY req.txt MVP_dock/requirements.txt
+RUN pip install -r MVP_dock/requirements.txt
+
+COPY serverSite .
+EXPOSE 8000
+EXPOSE 50051
+CMD ["python", "manage.py", "migrate"]
+CMD ["python", "manage.py", "makemigrations"] 
+CMD ["sh", "run.sh"]
+
